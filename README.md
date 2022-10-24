@@ -582,14 +582,13 @@ tabela = pd.read_excel ('basecompleta.xlsx')
 display (tabela) 
 
 
-# In[57]:
+
 
 
 ### Filtro utilizando o valor do centróide - Características da Geração Y ou Millennials (nascidos em 1981 a 1996)
 tabela[tabela['vl_quantity_sold'] <0.07877817]
 
 
-# In[52]:
 
 
 ### Filtro utilizando o valor do centróide - Características da Geração X (nascidos em1965 a 1980) 
