@@ -1,6 +1,6 @@
 # perfis-de-consumidores - 3 Sprints 
 
-Perfis de Consumidores a partir da Redução de Dimensionalidade por Componentes Principais
+#Perfis de Consumidores a partir da Redução de Dimensionalidade por Componentes Principais
 # coding: utf-8
 
 import pandas as pd
@@ -36,36 +36,17 @@ pca.transform(scaled_values).shape
 pd.DataFrame(scaled_values).T.to_excel('pospca.xlsx')
 
 
-# In[8]:
-
-
 pca.explained_variance_.shape
-
-
-
 
 
 pca.explained_variance_ratio_.sum()
 
 
-
-
 pca.explained_variance_ratio_.shape
-
-
-
-
 
 pca.explained_variance_ratio_.cumsum()
 
-
-
-
 import matplotlib.pyplot as plt
-
-
-
-
 
 plt.plot(pca.explained_variance_ratio_.cumsum())
 
