@@ -1,125 +1,42 @@
 # perfis-de-consumidores - 3 Sprints 
 
-#Perfis de Consumidores a partir da Redução de Dimensionalidade por Componentes Principais
-plt.show()
-
-
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
 
 import pandas as pd
-
-
-# In[2]:
-
-
-###Carregando os dados
 data = pd.read_excel('vendasloja.xlsx')
 dim_item = pd.read_excel('basecompleta.xlsx')
-
-
-# In[4]:
-
-
-###Preparando o arquivo de informações dos itens 
 dim_item.groupby(['id_item','nm_item','cd_ean']).agg({'vl_quantity_sold':['sum','count',lambda x: sum((x>0))]})
 
-
-# In[5]:
-
-
-### Análise PCA
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 pca = PCA()
 
-
-# In[6]:
-
-
 scaled_values = scaler.fit_transform(data.iloc[:,1:].values.T)
 pca.fit(scaled_values)
 
-
-# In[7]:
-
-
 pca.transform(scaled_values).shape
-
-
-# In[10]:
-
 
 pd.DataFrame(scaled_values).T.to_excel('pospca.xlsx')
 
-
-# In[11]:
-
-
 pca.explained_variance_.shape
 
-
-# In[12]:
-
-
 pca.explained_variance_ratio_.sum()
-
-
-# In[13]:
-
 
 pca.explained_variance_ratio_.shape
 
-
-# In[14]:
-
-
 pca.explained_variance_ratio_.cumsum()
-
-
-# In[15]:
-
 
 pca.explained_variance_ratio_.sum()
 
-
-# In[16]:
-
-
 pca.explained_variance_ratio_.shape
 
-
-# In[17]:
-
-
 pca.explained_variance_ratio_.cumsum()
-
-
-# In[18]:
-
 
 import matplotlib.pyplot as plt
-
-
-# In[19]:
-
 
 plt.plot(pca.explained_variance_ratio_.cumsum())
 
-
-# In[20]:
-
-
-### Histograma de frequências para representar meus dados
 import matplotlib.pyplot as plt
-
-
-# In[21]:
-
 
 dados = ([0.54333475, 0.61304935, 0.64940112, 0.6775558 , 0.70406772,
        0.72303032, 0.74055695, 0.75653088, 0.76815192, 0.77867318,
@@ -195,27 +112,10 @@ dados = ([0.54333475, 0.61304935, 0.64940112, 0.6775558 , 0.70406772,
        0.99992609, 0.99994418, 0.99996068, 0.99997305, 0.99998362,
        0.99999334, 1.        ])
 
-
-# In[22]:
-
-
 plt.hist(dados, 5, rwidth=0.5)
 plt.show()
 
-
-# In[23]:
-
-
-### SPRINT 2  ****
-
-
-# In[24]:
-
-
 data.head()
-
-
-# In[25]:
 
 
 from sklearn.decomposition import PCA
@@ -223,14 +123,7 @@ from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 pca = PCA()
 
-
-# In[26]:
-
-
 data.iloc[:,1:]
-
-
-# In[27]:
 
 
 from sklearn.cluster import KMeans
@@ -239,26 +132,16 @@ from scipy.spatial.distance import cdist
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-# In[28]:
-
-
-# Criando os dados
 x1 = np.array([3, 1, 1, 2, 1, 6, 6, 6, 5, 6, 7, 8, 9, 8, 9, 9, 8])
 x2 = np.array([5, 4, 5, 6, 5, 8, 6, 7, 6, 7, 1, 2, 1, 2, 3, 2, 3])
 X = np.array(list(zip(x1, x2))).reshape(len(x1), 2)
- 
-# Visualizando os dados
+
 plt.plot()
 plt.xlim([0, 10])
 plt.ylim([0, 10])
 plt.title('Dataset')
 plt.scatter(x1, x2)
 plt.show()
-
-
-# In[29]:
-
 
 distortions = []
 inertias = []
@@ -283,16 +166,8 @@ plt.show()
                                    'euclidean'), axis=1)) / X.shape[0]
     mapping2[k] = kmeanModel.inertia_
 
-
-# In[30]:
-
-
 for key, val in mapping1.items():
     print(f'{key} : {val}')
-
-
-# In[35]:
-
 
 plt.plot(K, distortions, 'bx-')
 plt.xlabel('Valores de K')
@@ -300,16 +175,8 @@ plt.ylabel('Distorção')
 plt.title('Método de Cotovelo usando Distorção')
 plt.show()
 
-
-# In[39]:
-
-
 for key, val in mapping2.items():
     print(f'{key} : {val}')
-
-
-# In[38]:
-
 
 plt.plot(K, inertias, 'bx-')
 plt.xlabel('Valores de K')
@@ -317,36 +184,18 @@ plt.ylabel('Inertia')
 plt.title('Método do cotovelo usando a inertia')
 plt.show()
 
-
-# In[40]:
-
-
 import seaborn as sns
 import pandas as pd
 from sklearn.cluster import KMeans
 
-
-# In[41]:
-
-
 df = sns.load_dataset("iris")
-
-
-# In[42]:
-
 
 kmeans = KMeans(n_clusters = 5)
 kmeans.fit(X)
 
-# Centroides das entradas
 kmeans.cluster_centers_
 
-# Clusters das entradas
 kmeans.labels_
-
-
-# In[43]:
-
 
 plt.plot(K, distortions, 'bx-')
 plt.xlabel('Valores de K')
@@ -354,11 +203,6 @@ plt.ylabel('Distorção')
 plt.title('Método de Cotovelo usando Distorção')
 plt.show()
 
-
-# In[53]:
-
-
-### Dimensionando os dados
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -398,19 +242,9 @@ plt.grid()
 myplot(x_new[:,0:2],np.transpose(pca.components_[0:4,1 :]))
 plt.show()
 
-
-# In[54]:
-
-
-### K- Means - AGRUPAMENTO COM SCIPY - Clusterização
 import numpy as np
 from scipy.cluster.vq import whiten, kmeans, vq, kmeans2
 
-
-# In[55]:
-
-
-# observations
 data =([0.54333475, 0.61304935, 0.64940112, 0.6775558 , 0.70406772,
        0.72303032, 0.74055695, 0.75653088, 0.76815192, 0.77867318,
        0.78827749, 0.79698598, 0.80475474, 0.81169824, 0.81806326,
@@ -485,17 +319,11 @@ data =([0.54333475, 0.61304935, 0.64940112, 0.6775558 , 0.70406772,
        0.99992609, 0.99994418, 0.99996068, 0.99997305, 0.99998362,
        0.99999334, 1])
   
-# normalize
+
 data = whiten(data)
   
 print(data)
 
-
-# In[58]:
-
-
-# Clusterização
-# atribuir centroides e clusters
 centroids, clusters = kmeans2(data, 3, 
                               minit='random')
   
@@ -503,11 +331,6 @@ print("Centroids :\n", centroids, "\n")
 print("Clusters :", clusters)
 plt.show()
 
-
-# In[59]:
-
-
-# Plotando com os dados de distâncias dos clusters
 x1 = np.array([1, 1, 1, 1, 1 ,1 ,1, 1 ,1, 1, 1, 1 ,1 ,1, 1 ,1 ,1 ,1 ,1, 1 ,1, 1, 1, 1 ,1 ,1 ,1 ,1, 1 ,1, 1 ,1, 1, 1, 1, 1, 1,
  1, 1, 1, 1 ,1, 1, 1, 1, 1, 1, 1, 1, 1 ,0 ,0, 0, 2, 2, 2, 0, 2, 0, 2 ,2 ,2, 2, 2,2 ,0, 2, 2, 2, 2, 0, 2, 2, 2,
  2, 0, 0 ,0, 2, 2, 2 ,2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2 ,2, 2 ,2 ,2, 2, 2 ,2 ,0 ,2 ,0 ,0, 0, 0, 2, 0 ,0 ,0 ,0,
@@ -520,19 +343,12 @@ x2 = np.array([1, 1, 1 ,1 ,1, 1, 1, 1, 1 ,1, 1 ,1 ,1 ,1, 1 ,1, 1 ,1, 1 ,1 ,1 ,1,
 X = np.array(list(zip(x1, x2))).reshape(len(x1), 2)
 
 
-# In[60]:
-
-
 plt.plot()
 plt.xlim([0, 4])
 plt.ylim([0, 4])
 plt.title('Dataset')
 plt.scatter(x1, x2)
 plt.show()
-
-
-# In[61]:
-
 
 import mpl_toolkits.mplot3d 
 
@@ -550,7 +366,6 @@ y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
 plt.figure(2, figsize=(8, 6))
 plt.clf()
 
-# Plotando
 plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Set1, edgecolor="k")
 plt.xlabel("Comprimento")
 plt.ylabel("Largura")
@@ -559,10 +374,6 @@ plt.xlim(x_min, x_max)
 plt.ylim(y_min, y_max)
 plt.xticks(())
 plt.yticks(())
-
-
-# In[62]:
-
 
 fig = plt.figure(1, figsize=(8, 6))
 ax = fig.add_subplot(111, projection="3d", elev=-150, azim=110)
@@ -588,72 +399,17 @@ ax.w_zaxis.set_ticklabels([])
 
 plt.show()
 
-
-# In[63]:
-
-
-### Sprint 3 *** - Filtrando os itens pelos números de centróides, para identificar os personas
-### Analisando com os centróides localizados na clusterização com Kmeans 
-### Para utilizar na visualização dos itens comprados para identificar as gerações dos consumidores
-
-
-# In[64]:
-
-
 data = pd.read_excel('vendasloja.xlsx')
 dim_item = pd.read_excel('basecompleta.xlsx')
 
-
-# In[65]:
-
-
 dim_item.groupby(['id_item','nm_item','cd_ean']).agg({'vl_quantity_sold':['sum','count',lambda x: sum((x>0))]})
-
-
-# In[66]:
 
 
 tabela = pd.read_excel ('basecompleta.xlsx')
 display (tabela) 
 
-
-# In[67]:
-
-
-### Filtro utilizando o valor do centróide - Características da Geração Y ou Millennials (nascidos em 1981 a 1996)
-tabela[tabela['vl_quantity_sold'] <0.07877817]
-
-
-# In[68]:
-
-
-### Filtro utilizando o valor do centróide - Características da Geração X (nascidos em1965 a 1980) 
-tabela[tabela['vl_quantity_sold'] <0.08442037]
-
-
-# In[69]:
-
-
-### Filtro utilizando o valor do centróide - Características da Babyboomers (nascidos entre 1946 a 1964)
-tabela[tabela['vl_quantity_sold'] <11.62901594]
-
-
-# In[ ]:
-
-
-### Finalização 
-
-
-# In[86]:
-
-
-#### Utilizando os 3 primeiros resultados
-
 for key, val in mapping1.items():
     print(f'{key} : {val}')
-
-
-# In[84]:
 
 
 import plotly.graph_objects as go
