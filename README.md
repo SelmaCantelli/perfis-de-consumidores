@@ -428,14 +428,4 @@ fig = go.Figure(data=[go.Scatter(
 fig.show()
 
 
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
 
