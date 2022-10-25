@@ -355,7 +355,6 @@ import mpl_toolkits.mplot3d
 from sklearn import datasets
 from sklearn.decomposition import PCA
 
-# importando os dados
 iris = datasets.load_iris()
 X = iris.data[:, :2]  
 y = iris.target
