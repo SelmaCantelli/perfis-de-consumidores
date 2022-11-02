@@ -3,20 +3,20 @@
 Trabalho feito no Power BI
 ![image](https://user-images.githubusercontent.com/77678430/199378186-89886928-5115-4aa1-9dd0-84943117269f.png)
 
-#Código em Python
+**#Código em Python**
 
 
 import pandas as pd
 
 
-
-#Carregando os dados
+**
+#Carregando os dados**
 data = pd.read_excel('vendasloja.xlsx')
 dim_item = pd.read_excel('basecompleta.xlsx')
 
 
 
-###Preparando o arquivo de informações dos itens 
+**###Preparando o arquivo de informações dos itens**
 dim_item.groupby(['id_item','nm_item','cd_ean']).agg({'vl_quantity_sold':['sum','count',lambda x: sum((x>0))]})
 
 
